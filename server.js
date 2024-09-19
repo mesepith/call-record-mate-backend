@@ -1,3 +1,5 @@
+require('dotenv').config(); // Add this line at the top
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const twilio = require('twilio');
@@ -5,9 +7,11 @@ const twilio = require('twilio');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Twilio credentials
-const accountSid = 'YOUR_TWILIO_ACCOUNT_SID';
-const authToken = 'YOUR_TWILIO_AUTH_TOKEN';
+const domain = process.env.DOMAIN
+
+// Use environment variables for Twilio credentials
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
 // Middleware
@@ -18,9 +22,9 @@ app.post('/start-call', async (req, res) => {
     const { to } = req.body;
     try {
         const call = await client.calls.create({
-            url: 'http://your-server-url/twiml', // URL to TwiML for handling the call
+            url: domain + 'twiml', // URL to TwiML for handling the call
             to: to,
-            from: 'YOUR_TWILIO_PHONE_NUMBER',
+            from: process.env.TWILIO_PHONE_NUMBER, // Use the environment variable here
             record: true // Start recording
         });
         res.status(200).json({ callSid: call.sid });
