@@ -37,7 +37,9 @@ app.post('/twiml', (req, res) => {
     const twiml = new twilio.twiml.VoiceResponse();
     
     // Use <Dial> to connect the caller and the recipient
-    twiml.dial({callerId: process.env.TWILIO_PHONE_NUMBER}).client('receiver'); // 'receiver' can be the contact or a client identity
+    //twiml.dial({callerId: process.env.TWILIO_PHONE_NUMBER}).client('receiver'); // 'receiver' can be the contact or a client identity
+    twiml.dial({callerId: process.env.TWILIO_PHONE_NUMBER, record: 'record-from-ringing'}).client('receiver');
+
 
     res.type('text/xml');
     res.send(twiml.toString());
