@@ -45,6 +45,6 @@ TWILIO_PHONE_NUMBER=YOUR_TWILIO_PHONE_NUMBER
 DOMAIN=https://twilio.zahiralam.com/
 ```
 
-# Note: twiml url must be publicly accessible by twilio.  If your backend server is running on a local machine, it will not be accessible to Twilio.
+### Note: twiml url must be publicly accessible by twilio.  If your backend server is running on a local machine, it will not be accessible to Twilio.
 
 To access your nodejs application publicly follow this tutorial <a href="https://zahiralam.com/blog/how-to-make-your-node-js-application-accessible-via-a-domain/">Go Live in Minutes: Host Your Node.js Application on Ubuntu Server</a>
