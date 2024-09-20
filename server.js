@@ -36,13 +36,14 @@ app.post('/twiml', (req, res) => {
     console.log('Generating TwiML response for two-way communication');
     const twiml = new twilio.twiml.VoiceResponse();
     
-    // Dial the phone number directly for two-way communication
+    // Dial the number for two-way communication
     const dial = twiml.dial({ callerId: process.env.TWILIO_PHONE_NUMBER });
-    dial.number(req.body.to); // Dial the recipient number
+    dial.number(req.body.to);  // Dial the number provided from the request
     
     res.type('text/xml');
     res.send(twiml.toString());
 });
+
 
 
 
