@@ -31,7 +31,21 @@ app.post('/start-call', async (req, res) => {
     }
 });
 
+//Twilio for two way communication
 app.post('/twiml', (req, res) => {
+    console.log('Generating TwiML response for two-way communication');
+    const twiml = new twilio.twiml.VoiceResponse();
+    
+    // Use <Dial> to connect the caller and the recipient
+    twiml.dial({callerId: process.env.TWILIO_PHONE_NUMBER}).client('receiver'); // 'receiver' can be the contact or a client identity
+
+    res.type('text/xml');
+    res.send(twiml.toString());
+});
+
+
+//Twilio for one way communication
+app.post('/twiml1', (req, res) => {
     const twiml = new twilio.twiml.VoiceResponse();
     twiml.say('This call is being recorded.');
     twiml.record();
