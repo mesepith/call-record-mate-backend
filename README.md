@@ -30,7 +30,7 @@ npm install dotenv axios
 
 ## Create Twilio Account
 
-visit <a href="twilio.com" target="_blank">Twilio</a>. Register and get SID, Auth Token, Twilio Phone Number
+visit <a href="https://www.twilio.com" target="_blank">Twilio</a>. Register and get SID, Auth Token, Twilio Phone Number
 
 ## Create a .env File
 
