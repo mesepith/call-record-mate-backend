@@ -20,9 +20,9 @@ app.post('/start-call', async (req, res) => {
     try {
         const call = await client.calls.create({
             url: domain + '/twiml', // TwiML URL where the call instructions are provided
-            to: to,                 // Phone number of the recipient (e.g., +919167638852)
+            to: to,                 // Phone number of the recipient
             from: process.env.TWILIO_PHONE_NUMBER, // Twilio phone number as the caller ID
-            record: true            // Record the call if needed
+            record: true            // Record the call
         });
         res.status(200).json({ callSid: call.sid });
     } catch (error) {
@@ -31,18 +31,25 @@ app.post('/start-call', async (req, res) => {
     }
 });
 
+
+
 //Twilio for two way communication
 app.post('/twiml', (req, res) => {
     console.log('Generating TwiML response for two-way communication');
+    
     const twiml = new twilio.twiml.VoiceResponse();
     
-    // Dial the number for two-way communication
-    const dial = twiml.dial({ callerId: process.env.TWILIO_PHONE_NUMBER });
-    dial.number(req.body.to);  // Dial the number provided from the request
+    // Set up a conference call to connect both the app and recipient
+    const dial = twiml.dial();
+    dial.conference({
+        startConferenceOnEnter: true, // Start conference when the caller joins
+        endConferenceOnExit: true     // End the conference when the caller hangs up
+    }, 'MyConferenceRoom'); // 'MyConferenceRoom' is the name of the conference
     
     res.type('text/xml');
     res.send(twiml.toString());
 });
+
 
 
 
