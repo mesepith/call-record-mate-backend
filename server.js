@@ -36,14 +36,16 @@ app.post('/twiml', (req, res) => {
     console.log('Generating TwiML response for two-way communication');
     const twiml = new twilio.twiml.VoiceResponse();
     
-    // Use <Dial> to connect the caller and the recipient
-    //twiml.dial({callerId: process.env.TWILIO_PHONE_NUMBER}).client('receiver'); // 'receiver' can be the contact or a client identity
-    twiml.dial({callerId: process.env.TWILIO_PHONE_NUMBER, record: 'record-from-ringing'}).client('receiver');
-
-
+    // Dial the phone number directly for testing
+    twiml.dial({
+        callerId: process.env.TWILIO_PHONE_NUMBER,
+        record: 'record-from-ringing',
+    }, '+919167638852'); // Replace with the actual phone number you want to call
+    
     res.type('text/xml');
     res.send(twiml.toString());
 });
+
 
 
 //Twilio for one way communication
