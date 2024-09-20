@@ -39,16 +39,19 @@ app.post('/twiml', (req, res) => {
     
     const twiml = new twilio.twiml.VoiceResponse();
     
-    // Set up a conference call to connect both the app and recipient
+    // Create a conference room for two-way communication
     const dial = twiml.dial();
     dial.conference({
-        startConferenceOnEnter: true, // Start conference when the caller joins
-        endConferenceOnExit: true     // End the conference when the caller hangs up
-    }, 'MyConferenceRoom'); // 'MyConferenceRoom' is the name of the conference
-    
+        startConferenceOnEnter: true, // Join the conference when call starts
+        endConferenceOnExit: true,    // End the conference when both parties hang up
+        waitUrl: '',  // Set this empty to prevent Twilio's default hold music
+        record: 'record-from-start'   // Start recording when the conference begins
+    }, 'MyConferenceRoom');
+
     res.type('text/xml');
     res.send(twiml.toString());
 });
+
 
 
 
