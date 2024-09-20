@@ -18,6 +18,8 @@ Scalable architecture to support a growing user base
 
 ## Project Setup
 
+```bash
+
 mkdir call-record-mate-backend
 
 cd call-record-mate-backend
@@ -27,6 +29,10 @@ npm init -y
 npm install express body-parser twilio
 
 npm install dotenv axios
+
+npm install pm2@latest -g
+
+```
 
 ## Create Twilio Account
 
