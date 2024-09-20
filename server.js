@@ -19,14 +19,14 @@ app.post('/start-call', async (req, res) => {
     const { to } = req.body;
     try {
         const call = await client.calls.create({
-            url: domain + 'twiml',
-            to: to,
-            from: process.env.TWILIO_PHONE_NUMBER,
-            record: true
+            url: domain + '/twiml', // TwiML URL where the call instructions are provided
+            to: to,                 // Phone number of the recipient (e.g., +919167638852)
+            from: process.env.TWILIO_PHONE_NUMBER, // Twilio phone number as the caller ID
+            record: true            // Record the call if needed
         });
         res.status(200).json({ callSid: call.sid });
     } catch (error) {
-        console.log('error : '+ error.message);
+        console.log('Error starting call:', error.message);
         res.status(500).json({ error: error.message });
     }
 });
@@ -36,15 +36,14 @@ app.post('/twiml', (req, res) => {
     console.log('Generating TwiML response for two-way communication');
     const twiml = new twilio.twiml.VoiceResponse();
     
-    // Dial the phone number directly for testing
-    twiml.dial({
-        callerId: process.env.TWILIO_PHONE_NUMBER,
-        record: 'record-from-ringing',
-    }, '+919167638852'); // Replace with the actual phone number you want to call
+    // Dial the phone number directly for two-way communication
+    const dial = twiml.dial({ callerId: process.env.TWILIO_PHONE_NUMBER });
+    dial.number(req.body.to); // Dial the recipient number
     
     res.type('text/xml');
     res.send(twiml.toString());
 });
+
 
 
 
