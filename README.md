@@ -28,6 +28,10 @@ npm install express body-parser twilio
 
 npm install dotenv
 
+## Create Twilio Account
+
+visit <a href="twilio.com" target="_blank">Twilio</a>. Register and get SID, Auth Token, Twilio Phone Number
+
 ## Create a .env File
 
 Create a file named .env in the root directory of your Express.js project (call-record-backend).
@@ -38,4 +42,7 @@ Add the following lines to this file:
 TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID
 TWILIO_AUTH_TOKEN=YOUR_TWILIO_AUTH_TOKEN
 TWILIO_PHONE_NUMBER=YOUR_TWILIO_PHONE_NUMBER
+DOMAIN=https://twilio.zahiralam.com/
 ```
+
+# Note: twiml url must be publicly accessible by twilio.  If your backend server is running on a local machine, it will not be accessible to Twilio.
